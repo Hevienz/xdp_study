@@ -1,11 +1,13 @@
 CC := clang
+FLAGS := -O2 -Wall -g
 TARGET := -target bpf
+
 NETIF := docker0
-SELECTED_OBJ := xdp_drop_tcp.o
+SELECTED_OBJ := tc_drop_tcp.o
 VERBOSE := #verbose
 
 %.o: %.c
-	$(CC) $(TARGET) -c $< -o $@
+	$(CC) $(FLAGS) $(TARGET) -c $< -o $@
 
 .PHONY: attachxdp
 attachxdp: $(SELECTED_OBJ)
