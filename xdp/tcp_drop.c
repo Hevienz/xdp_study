@@ -5,7 +5,7 @@
 
 #define SEC(NAME) __attribute__((section(NAME), used))
 
-SEC("drop_tcp")
+SEC("xdp")
 int dropper(struct xdp_md *ctx) {
    int ipsize = 0;
 
@@ -30,5 +30,5 @@ int dropper(struct xdp_md *ctx) {
    return XDP_PASS;
  }
 
-char _license[] SEC("license") = "GPL"
+char _license[] SEC("license") = "GPL";
 
