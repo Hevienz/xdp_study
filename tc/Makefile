@@ -38,6 +38,10 @@ tcoff: ## Detach tc
 	tc qdisc del dev $(NETIF) clsact
 	tc qdisc show dev $(NETIF) clsact
 
+.PHONY: tcmonitor
+tcmonitor: ## tc monitor
+	tc exec bpf debug
+
 .PHONY: clean ## Clean *.o
 clean:
 	rm *.o
