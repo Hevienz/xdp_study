@@ -2,7 +2,8 @@ CC := clang
 FLAGS := -O2 -Wall -g
 TARGET := -target bpf
 
-NETIF := docker0
+NETIF := eth1
+XDPTYPE := xdpoffload
 SELECTED_OBJ := tcp_drop.o
 VERBOSE := #verbose
 
@@ -19,11 +20,11 @@ drun: ## Run docker
 
 .PHONY: xdpon
 xdpon: $(SELECTED_OBJ) ## Attach xdp
-	ip link set dev $(NETIF) xdp obj $(SELECTED_OBJ) section xdp $(VERBOSE)
+	ip link set dev $(NETIF) $(XDPTYPE) obj $(SELECTED_OBJ) section xdp $(VERBOSE)
 
 .PHONY: xdpoff
 xdpoff: ## Detach xdp
-	ip link set dev $(NETIF) xdp off
+	ip link set dev $(NETIF) $(XDPTYPE) off
 
 .PHONY: clean ## Clean *.o
 clean:
